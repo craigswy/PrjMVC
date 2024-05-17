@@ -12,6 +12,7 @@ namespace PrjMVC.Controllers
             string providerName = null;
 
             ProfileListModel model = new ProfileListModel(connectionString, providerName);
+            model.SetSysParameter();
             model.GetDataList();
 
             return View(model);

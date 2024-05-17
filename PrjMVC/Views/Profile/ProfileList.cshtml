@@ -4,14 +4,94 @@
 
 @model PrjMVC.Models.ProfileListModel
 
+<style>
+    table {
+        margin-top: 15px;
+    }
+
+</style>
+
 <div>
     <h2>員工資料表</h2>
 </div>
 
 <div style="width:100%;">
-    @using (Html.BeginForm("ProfileListForm")) 
+    @using (Html.BeginForm("ProfileListForm"))
     {
-        <table class="table">
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.Label("入職日期")
+                                </th>
+                                <td>
+                                    @{
+                                        DateTime dtNow = DateTime.Now;
+                                        string beginDate = dtNow.ToString("yyyyMMdd");
+                                        string endDate = dtNow.AddDays(-90).ToString("yyyyMMdd");
+                                    }
+                                    @Html.TextBox("AssignBeginDate", beginDate) - @Html.TextBox("AssignEndDate", endDate)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("出生日期")
+                                </th>
+                                <td>
+                                    @Html.TextBox("DOBBeginDate") - @Html.TextBox("DOBEndDate")
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.Label("員工編號")
+                                </th>
+                                <td>
+                                    @Html.TextBox("StfnNo")
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("姓名")
+                                </th>
+                                <td>
+                                    @Html.TextBox("StfnName")
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("手機號碼")
+                                </th>
+                                <td>
+                                    @Html.TextBox("PhoneNo")
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.Label("員工狀態")
+                                </th>
+                                <td>
+                                    @Html.DropDownListFor(model => model.SelectStatus,
+                                                          new SelectList(Model.DicStatus, "Key", "Value", Model.SelectStatus),
+                                                          string.Empty)
+                                </td>
+                            </tr>                            
+                        </table>
+                    </td>
+                </tr>               
+            </tbody>
+        </table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>
@@ -23,13 +103,13 @@
                         @Html.Label("員工編號")
                     </th>
                     <th>
+                        @Html.Label("狀態")
+                    </th>
+                    <th>
                         @Html.Label("入職日期")
                     </th>
                     <th>
                         @Html.Label("姓名")
-                    </th>
-                    <th>
-                        @Html.Label("狀態")
                     </th>
                     <th>
                         @Html.Label("出生年月日")
@@ -40,6 +120,8 @@
                     <th>
                         @Html.Label("地址")
                     </th>
+                    <th>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -47,45 +129,48 @@
                 {
                     foreach (var item in Model.ProfileList)
                     {
-                    <td>
-                        <input type="radio" />
-                    </td>
-                    <td>
-                        @Html.Label(item.UID)
-                    </td>
-                    <td>
-                        @Html.Label(item.StfnID)
-                    </td>
-                    <td>
-                        @{
-                            string ArrDate = item.ArrivedDate.Substring(0, 4) + "/" + item.ArrivedDate.Substring(4, 2) + "/" + item.ArrivedDate.Substring(6, 2);
-                        }
-                        @Html.Label(ArrDate)
-                    </td>
-                    <td>
-                        @Html.Label(item.Name)
-                    </td>
-                    <td>
-                        @Html.Label(item.Status)
-                    </td>
-                    <td>
-                        @{
-                            string DOBdate = item.DOB.Substring(0, 4) + "/" + item.DOB.Substring(4, 2) + "/" + item.DOB.Substring(6, 2);
-                        }
-                        @Html.Label(DOBdate)
-                    </td>
-                    <td>
-                        @Html.Label(item.Tel1)
-                    </td>
-                    <td>
-                        @Html.Label(item.Tel2)
-                    </td>
-                    <td>
-                        @Html.Label(item.Address)
-                    </td>
-                    <td>
-                        
-                    </td>
+                        <tr>
+                            <td>
+                                <input type="radio" />
+                            </td>
+                            <td>                                
+                                @Html.Label(item.UID)
+                            </td>
+                            <td>
+                                @Html.ActionLink(item.StfnID, "ProfileDetail")
+                            </td>
+                            <td>
+                                @Html.Label(item.Status)
+                            </td>
+                            <td>
+                                @{
+                                    string ArrDate = item.ArrivedDate.Substring(0, 4) + "/" + item.ArrivedDate.Substring(4, 2) + "/" + item.ArrivedDate.Substring(6, 2);
+                                }
+                                @Html.Label(ArrDate)
+                            </td>
+                            <td>
+                                @Html.Label(item.Name)
+                            </td>
+                            <td>
+                                @{
+                                    string DOBdate = item.DOB.Substring(0, 4) + "/" + item.DOB.Substring(4, 2) + "/" + item.DOB.Substring(6, 2);
+                                }
+                                @Html.Label(DOBdate)
+                            </td>
+                            <td>
+                                @Html.Label(item.Tel1)
+                            </td>
+                            <td>
+                                @Html.Label(item.Tel2)
+                            </td>
+                            <td>
+                                @Html.Label(item.Address)
+                            </td>
+                            <td>
+                                @Html.ActionLink("訊息", "Message", "ProfileMessage", new { id = item.StfnID }, new { Class = "btn btn-success" })
+                            </td>
+
+                        </tr>                    
                 }
             }
                 </tbody>
