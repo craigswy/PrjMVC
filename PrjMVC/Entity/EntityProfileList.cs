@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace PrjMVC.Entity
 {
@@ -17,24 +18,36 @@ namespace PrjMVC.Entity
             pro_Status,
             pro_Name,
             pro_DOB,
+            pro_Gender,
             pro_Tel1,
             pro_Tel2,
             pro_Address,
             pro_StfnID,
-            pro_ArrivedDate,
-            pro_Email            
+            pro_ArrivalDate,
+            pro_Email,
+            pro_Country,
+            pro_City,
+            pro_Theme,
+            pro_Remark,
+            pro_Record_Date
         }
 
-        public string pro_UID;
-        public string pro_Status;
-        public string pro_Name;
-        public string pro_DOB;
-        public string pro_Tel1;
-        public string pro_Tel2;
-        public string pro_Address;
-        public string pro_StfnID;
-        public string pro_ArrivedDate;
-        public string pro_Email;
+            public string pro_UID;
+            public string pro_Status;
+            public string pro_Name;
+            public string pro_DOB;
+            public string pro_Gender;
+            public string pro_Tel1;
+            public string pro_Tel2;
+            public string pro_Address;
+            public string pro_StfnID;
+            public string pro_ArrivalDate;
+            public string pro_Email;
+            public string pro_Country;
+            public string pro_City;
+            public string pro_Theme;
+            public string pro_Remark;
+            public string pro_Record_Date;
 
         #endregion - 輸入參數 -  
 
@@ -45,12 +58,18 @@ namespace PrjMVC.Entity
             public string pro_Status;
             public string pro_Name;
             public string pro_DOB;
+            public string pro_Gender;
             public string pro_Tel1;
             public string pro_Tel2;
             public string pro_Address;
             public string pro_StfnID;
-            public string pro_ArrivedDate;
+            public string pro_ArrivalDate;
             public string pro_Email;
+            public string pro_Country;
+            public string pro_City;
+            public string pro_Theme;
+            public string pro_Remark;
+            public string pro_Record_Date;
         }
         #endregion - 輸出參數 -
 
@@ -70,13 +89,19 @@ namespace PrjMVC.Entity
                     "     , pro_Status",
                     "     , pro_Name",
                     "     , pro_DOB",
+                    "     , pro_Gender",
                     "     , pro_Tel1",
                     "     , pro_Tel2",
                     "     , pro_Address",
                     "     , pro_StfnID",
                     "     , pro_ArrivalDate",
                     "     , pro_Email",
-                    "  FROM DBO.StfnProfile;"
+                    "     , pro_Country",
+                    "     , pro_City",
+                    "     , pro_Theme",
+                    "     , pro_Remark",
+                    "     , pro_Record_Date",
+                    "  FROM Project.dbo.StfnProfile;"
                 );
 
                 SqlCommand command = new SqlCommand(commandText, conn);
@@ -94,8 +119,14 @@ namespace PrjMVC.Entity
                         pro_Tel2 = reader["pro_Tel2"].ToString(),
                         pro_Address = reader["pro_Address"].ToString(),
                         pro_StfnID = reader["pro_StfnID"].ToString(),
-                        pro_ArrivedDate = reader["pro_ArrivalDate"].ToString(),
-                        pro_Email = reader["pro_Email"].ToString()
+                        pro_ArrivalDate = reader["pro_ArrivalDate"].ToString(),
+                        pro_Email = reader["pro_Email"].ToString(),
+                        pro_Country = reader["pro_Country"].ToString(),
+                        pro_City = reader["pro_City"].ToString(),
+                        pro_Theme = reader["pro_Theme"].ToString(),
+                        pro_Remark = reader["pro_Remark"].ToString(),
+                        pro_Record_Date = reader["pro_Record_Date"].ToString(),
+
                     };
                     profiles.Add(profile);
                 }                

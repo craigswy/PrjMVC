@@ -24,6 +24,13 @@ namespace PrjMVC.Models
             public string Address;
             public string StfnID;
             public string ArrivedDate;
+            public string Country;
+            public string Theme;
+            public string Remark;
+            public string Record_Date;
+            public string City;
+            public string Email;
+            public string Gender;
         }
 
         public enum EnumStatus 
@@ -55,6 +62,7 @@ namespace PrjMVC.Models
             _entityProfileList = new EntityProfileList(connectionStringPF, ProviderNamePF);
         }
         #endregion - Constructor -
+
         #region - Property -
 
         public string SelectStatus { get; set; }
@@ -62,6 +70,7 @@ namespace PrjMVC.Models
         public List<ProfiltView> ProfileList { get; set; }
 
         #endregion - Property -
+
         #region - Private -
 
         #endregion - Private -
@@ -107,8 +116,14 @@ namespace PrjMVC.Models
                     string tempTel2 = !string.IsNullOrEmpty(item.pro_Tel2) ? item.pro_Tel2 : string.Empty;
                     string tempAddr = !string.IsNullOrEmpty(item.pro_Address) ? item.pro_Address : string.Empty;
                     string tempStfn = !string.IsNullOrEmpty(item.pro_StfnID) ? item.pro_StfnID : string.Empty;                    
-                    string tempArrival = !string.IsNullOrEmpty(item.pro_ArrivedDate) ? item.pro_ArrivedDate : string.Empty;
+                    string tempArrival = !string.IsNullOrEmpty(item.pro_ArrivalDate) ? item.pro_ArrivalDate : string.Empty;
                     string tempEmail = !string.IsNullOrEmpty(item.pro_Email) ? item.pro_Email : string.Empty;
+                    string tempCountry = !string.IsNullOrEmpty(item.pro_Country) ? item.pro_Country : string.Empty;
+                    string tempCity = !string.IsNullOrEmpty(item.pro_City) ? item.pro_City : string.Empty;
+                    string tempTheme = !string.IsNullOrEmpty(item.pro_Theme) ? item.pro_Email : string.Empty;
+                    string tempRemark = !string.IsNullOrEmpty(item.pro_Remark) ? item.pro_Remark : string.Empty;
+                    string tempRecordDate = !string.IsNullOrEmpty(item.pro_Record_Date) ? item.pro_Record_Date : string.Empty;
+                    string tempGender = !string.IsNullOrEmpty(item.pro_Gender) ? item.pro_Gender : string.Empty;
                     
                     string tempStatus = string.Empty;
                     if (!string.IsNullOrEmpty(item.pro_Status)) 
@@ -140,7 +155,14 @@ namespace PrjMVC.Models
                         Tel2 = tempTel2,
                         Address = tempAddr,
                         StfnID = tempStfn,
-                        ArrivedDate = tempArrival
+                        ArrivedDate = tempArrival,
+                        Email = tempEmail,
+                        Country = tempCountry,
+                        City = tempCity,
+                        Theme = tempTheme,
+                        Record_Date = tempRecordDate,
+                        Remark = tempRemark,
+                        Gender = tempGender                        
                     });
                 }              
             }

@@ -9,23 +9,25 @@
         margin-top: 15px;
     }
 
+    .right-align td {
+        text-align: right;
 </style>
 
 <div>
-    <h2>員工資料表</h2>
+    <h2>會員資料表</h2>
 </div>
 
 <div style="width:100%;">
     @using (Html.BeginForm("ProfileListForm"))
     {
-        <table>
+        <table style="width:100%">
             <tbody>
                 <tr>
-                    <td>
+                    <td style="width:50%">
                         <table>
                             <tr>
                                 <th>
-                                    @Html.Label("入職日期")
+                                    @Html.Label("紀錄日期")
                                 </th>
                                 <td>
                                     @{
@@ -38,54 +40,48 @@
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.Label("出生日期")
+                                    @Html.Label("國家")
                                 </th>
                                 <td>
-                                    @Html.TextBox("DOBBeginDate") - @Html.TextBox("DOBEndDate")
+                                    @Html.TextBox("InputCountry")
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    @Html.Label("專長")
+                                </th>
+                                <td>
+                                    @Html.TextBox("InputSkill")
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td>
+                    <td style="width:50%">
                         <table>
                             <tr>
                                 <th>
-                                    @Html.Label("員工編號")
+                                    @Html.Label("流水編號")
                                 </th>
                                 <td>
-                                    @Html.TextBox("StfnNo")
+                                    @Html.TextBox("InputStfnNo")
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.Label("姓名")
+                                    @Html.Label("城市")
                                 </th>
                                 <td>
-                                    @Html.TextBox("StfnName")
+                                    @Html.TextBox("InputCity")
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    @Html.Label("手機號碼")
+                                    @Html.Label("帳號")
                                 </th>
                                 <td>
-                                    @Html.TextBox("PhoneNo")
+                                    @Html.TextBox("InputAccount")
                                 </td>
                             </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table>
-                            <tr>
-                                <th>
-                                    @Html.Label("員工狀態")
-                                </th>
-                                <td>
-                                    @Html.DropDownListFor(model => model.SelectStatus,
-                                                          new SelectList(Model.DicStatus, "Key", "Value", Model.SelectStatus),
-                                                          string.Empty)
-                                </td>
-                            </tr>                            
                         </table>
                     </td>
                 </tr>               
@@ -97,13 +93,16 @@
                     <th>
                     </th>
                     <th>
-                        @Html.Label("編號")
+                        @Html.Label("紀錄日期")
                     </th>
                     <th>
-                        @Html.Label("員工編號")
+                        @Html.Label("流水編號")
                     </th>
                     <th>
-                        @Html.Label("狀態")
+                        @Html.Label("帳號(Email)")
+                    </th>
+                    <th>
+                        @Html.Label("國家")
                     </th>
                     <th>
                         @Html.Label("入職日期")
@@ -112,15 +111,10 @@
                         @Html.Label("姓名")
                     </th>
                     <th>
-                        @Html.Label("出生年月日")
-                    </th>
-                    <th colspan="2">
-                        @Html.Label("電話")
+                        @Html.Label("性別")
                     </th>
                     <th>
-                        @Html.Label("地址")
-                    </th>
-                    <th>
+                        @Html.Label("修改")
                     </th>
                 </tr>
             </thead>
@@ -133,47 +127,44 @@
                             <td>
                                 <input type="radio" />
                             </td>
-                            <td>                                
+                            <td>
+                                @{
+                                    string RecDate = item.ArrivedDate.Substring(0, 4) + "/" + item.ArrivedDate.Substring(4, 2) + "/" + item.ArrivedDate.Substring(6, 2);
+                                }
+                                @Html.Label(RecDate)
+                            </td>
+                            <td>
                                 @Html.Label(item.UID)
                             </td>
                             <td>
-                                @Html.ActionLink(item.StfnID, "ProfileDetail")
+                                @Html.ActionLink(item.Email, "EmailLink")
                             </td>
                             <td>
-                                @Html.Label(item.Status)
+                                @Html.Label(item.Country)
                             </td>
-                            <td>
-                                @{
-                                    string ArrDate = item.ArrivedDate.Substring(0, 4) + "/" + item.ArrivedDate.Substring(4, 2) + "/" + item.ArrivedDate.Substring(6, 2);
-                                }
-                                @Html.Label(ArrDate)
+                            <td>                                
+                                @Html.Label(item.City)
                             </td>
                             <td>
                                 @Html.Label(item.Name)
                             </td>
                             <td>
-                                @{
-                                    string DOBdate = item.DOB.Substring(0, 4) + "/" + item.DOB.Substring(4, 2) + "/" + item.DOB.Substring(6, 2);
-                                }
-                                @Html.Label(DOBdate)
+                                @Html.Label(item.Gender)
                             </td>
                             <td>
-                                @Html.Label(item.Tel1)
+                                @Html.ActionLink("修改", "Edit", "ProfileDetail", new { id = item.StfnID }, new { Class = "btn btn-success" })
                             </td>
-                            <td>
-                                @Html.Label(item.Tel2)
-                            </td>
-                            <td>
-                                @Html.Label(item.Address)
-                            </td>
-                            <td>
-                                @Html.ActionLink("訊息", "Message", "ProfileMessage", new { id = item.StfnID }, new { Class = "btn btn-success" })
-                            </td>
-
                         </tr>                    
                 }
             }
                 </tbody>
             </table>  
+        <table class="right-align">
+            <tr>
+                <td>
+                    @Html.ActionLink("刪除", "Delete", "", new { }, new { Class = "btn btn-danger" })
+                </td>
+            </tr>
+        </table>
     }
 </div>
